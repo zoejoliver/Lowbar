@@ -164,3 +164,14 @@ describe('_.map', () => {
         expect(spy.thirdCall.calledWithExactly(3, 'three', {one: 1, two: 2, three: 3})).to.equal(true);
     });
 });
+
+describe('_.contains', () => {
+    it('returns true if array contains value', () => {
+        expect(_.contains([1,2,3,4,5], 3)).to.equal(true);
+        expect(_.contains([1,2,3,4,5], 6)).to.equal(false);
+    });
+    it('returns true if object contains value', () => {
+        expect(_.contains({one:1, two: 2, three: 3}, 2)).to.equal(true);
+        expect(_.contains({one:1, two: 2, three: 3}, 6)).to.equal(false);
+    });
+});

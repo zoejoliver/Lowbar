@@ -115,6 +115,25 @@ _.map = (list, iteratee) => {
     }    
 };
 
+_.contains = (list, value, fromIndex) => {
+    if (Array.isArray(list)) {
+        if (fromIndex !== undefined) {
+            if(_.indexOf(list, value, fromIndex) === -1) return false;
+            else return true;
+        }
+        for (let i = 0; i < list.length; i++) {
+            if (_.indexOf(list, value) === -1) return false; 
+            return true;
+        }
+    }
+    if (typeof list === 'object') {
+        for (let key in list) {
+            if (list[key] === value) return true; 
+        }
+        return false;	
+    }
+};
+
 module.exports = _;
 
 function binarySearch(arr, val, index) {
