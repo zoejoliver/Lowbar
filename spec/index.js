@@ -1,6 +1,6 @@
 const expect = require('chai').expect;
 const path = require('path');
-
+const sinon = require('sinon');
 const _ = require(path.join(__dirname,'..','./index.js'));
 
 describe('_', () => {
@@ -32,6 +32,31 @@ describe('_.last', () => {
     });
     it('returns the last given number of elements when second argument is provided', () => {
         expect(_.last([1,3,5,7,9], 3)).to.eql([5,7,9]);
+    });
+});
+
+describe('_.each', () => {
+    it('iterates over a list of elements for an array', () => {
+        let count = 0;
+        function incCount () {
+            count ++;
+        }
+        _.each([1,2,3],incCount);
+        expect(count).to.equal(3);
+    });
+    it('check all calls are made to iteratee function for array', () => {
+        const spy = sinon.spy();
+        _.each([1,2,3], spy);
+        expect(spy.firstCall.calledWithExactly(1,0,[1,2,3])).to.equal(true);
+        expect(spy.secondCall.calledWithExactly(2,1,[1,2,3])).to.equal(true);
+        expect(spy.thirdCall.calledWithExactly(3,2,[1,2,3])).to.equal(true);
+    });
+    it('check all calls are made to iteratee function for an object', () => {
+        const spy = sinon.spy();
+        _.each({one: 1, two: 2, three: 3}, spy);
+        expect(spy.firstCall.calledWithExactly(1,'one',{one: 1, two: 2, three: 3})).to.equal(true);
+        expect(spy.secondCall.calledWithExactly(2,'two',{one: 1, two: 2, three: 3})).to.equal(true);
+        expect(spy.thirdCall.calledWithExactly(3,'three',{one: 1, two: 2, three: 3})).to.equal(true);
     });
 });
 

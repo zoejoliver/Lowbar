@@ -14,4 +14,17 @@ _.last = (arr, n) => {
     return arr.slice(-n);
 };
 
+_.each = (list, iteratee) => {
+    if (Array.isArray(list)) {
+        for (let i = 0; i < list.length; i++) {
+            iteratee(list[i], i, list);
+        }
+    }
+    else {
+        for (let key in list) {
+            iteratee(list[key], key, list);
+        }
+    }
+};
+
 module.exports = _;
