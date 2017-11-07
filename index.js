@@ -66,8 +66,8 @@ _.filter = (list, predicate) => {
 };
 
 _.reject = (list, predicate) => {
-    let resultArr = [];
     if (Array.isArray(list)) {
+        let resultArr = [];
         for (let i = 0; i < list.length; i++) {
             if (!predicate(list[i])) {
                 resultArr.push(list[i]);
@@ -94,6 +94,25 @@ _.uniq = (arr) => {
         }
     }
     return resultArr;
+};
+
+_.map = (list, iteratee) => {
+    if (Array.isArray(list)) {
+        let resultArr = [];
+        for (let i = 0; i < list.length; i++) {
+            let item = iteratee(list[i], i, list);
+            resultArr.push(item);
+        }
+        return resultArr;
+    }
+    if (typeof list === 'object') {
+        let resultObj = {};
+        for (let key in list) {
+            let item = iteratee(list[key], key, list);
+            resultObj[key] = item;
+        }
+        return resultObj;
+    }    
 };
 
 module.exports = _;

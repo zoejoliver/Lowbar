@@ -138,3 +138,29 @@ describe('_.uniq', () => {
         expect(_.uniq([1,1,1,2,2,3,4,5,5,4,3,4])).to.eql([1,2,3,4,5]);
     });
 });
+
+describe('_.map', () => {
+    function double (x) {
+        return x * 2;
+    }
+    it('returns an array of items passed through iteratee function', () => {
+        expect(_.map([1,2,3,4,5], double)).to.eql([2,4,6,8,10]);
+    });
+    it('returns an object where values are passed through iteratee function', () => {
+        expect(_.map({one:1, two: 2, three: 3}, double)).to.eql({one: 2, two: 4, three: 6});
+    });
+    it('calls iteratee function for all items in an array', () => {
+        let spy = sinon.spy();
+        _.map([1,2,3], spy);
+        expect(spy.firstCall.calledWithExactly(1, 0, [1,2,3])).to.equal(true);
+        expect(spy.secondCall.calledWithExactly(2, 1, [1,2,3])).to.equal(true);
+        expect(spy.thirdCall.calledWithExactly(3, 2, [1,2,3])).to.equal(true);
+    });
+    it('calls iteratee function for all keys in an object', () => {
+        let spy = sinon.spy();
+        _.map({one: 1, two: 2, three: 3}, spy);
+        expect(spy.firstCall.calledWithExactly(1, 'one', {one: 1, two: 2, three: 3})).to.equal(true);
+        expect(spy.secondCall.calledWithExactly(2, 'two', {one: 1, two: 2, three: 3})).to.equal(true);
+        expect(spy.thirdCall.calledWithExactly(3, 'three', {one: 1, two: 2, three: 3})).to.equal(true);
+    });
+});
