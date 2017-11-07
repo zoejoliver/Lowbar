@@ -132,3 +132,9 @@ describe('_.reject', () => {
         expect(spy.thirdCall.calledWithExactly(3)).to.equal(true);
     });
 });
+
+describe('_.uniq', () => {
+    it('returns array of only the unique elements', () => {
+        expect(_.uniq([1,1,1,2,2,3,4,5,5,4,3,4])).to.eql([1,2,3,4,5]);
+    });
+});

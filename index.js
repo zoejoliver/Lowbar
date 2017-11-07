@@ -86,6 +86,16 @@ _.reject = (list, predicate) => {
     }   
 };
 
+_.uniq = (arr) => {
+    let resultArr = [];
+    for (let i = 0; i < arr.length; i++) {
+        if (_.indexOf(resultArr, arr[i]) === -1) {
+            resultArr.push(arr[i]);
+        }
+    }
+    return resultArr;
+};
+
 module.exports = _;
 
 function binarySearch(arr, val, index) {
