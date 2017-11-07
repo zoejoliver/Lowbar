@@ -9,4 +9,9 @@ _.first = (arr, n) => {
     return arr.slice(0, n);
 };
 
+_.last = (arr, n) => {
+    if (n === undefined) return arr[arr.length-1];
+    return arr.slice(-n);
+};
+
 module.exports = _;
