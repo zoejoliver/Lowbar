@@ -27,4 +27,39 @@ _.each = (list, iteratee) => {
     }
 };
 
+_.indexOf = (arr, value, isSorted) => {
+    if (isSorted === undefined) {
+        for (let i = 0; i < arr.length; i++) {
+            if (arr[i] === value) return i;
+        }
+    }
+    if (typeof isSorted === 'number') {
+        for (let i = isSorted; i < arr.length; i++) {
+            if (arr[i] === value) return i - isSorted;
+        }
+    }
+    if (isSorted === true) {
+        return binarySearch(arr, value, 0);
+    }
+    return -1;
+};
+
+function binarySearch(arr, val, index) {
+    if (arr.length === 1) {
+        return index;
+    }
+    var half = Math.floor(arr.length/2);
+    var first = arr.slice(0, half);
+    var second = arr.slice(half);
+    if (val === arr[half]) {
+        return (half + index);
+    }
+    else if (val > half) {
+        index += first.length;
+        return binarySearch(second, val, index);
+    }
+    else {
+        return binarySearch(first, val, index);
+    }
+}
 module.exports = _;

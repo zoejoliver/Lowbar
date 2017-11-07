@@ -60,4 +60,17 @@ describe('_.each', () => {
     });
 });
 
-
+describe('_.indexOf', () => {
+    it('returns -1 if value is not present in the array', () => {
+        expect(_.indexOf([3,3,5,2,5,6,7,8], 4)).to.equal(-1);
+    });
+    it('returns index of value in the array', () => {
+        expect(_.indexOf([3,3,5,2,5,6,7,8], 2)).to.equal(3);
+    });
+    it('returns index of search value after given index as third argument', () => {
+        expect(_.indexOf([1,2,3,4,5,6], 5, 2)).to.equal(2);
+    });
+    it('performs binary search on array if sorted argument provided', () => {
+        expect(_.indexOf([1,2,3,4,5,6,7,8], 7, true)).to.equal(6);
+    });
+});
