@@ -11,3 +11,11 @@ describe('_', () => {
     });
 });
 
+describe('_.identity', () => {
+    it('returns the same value used in the argument', () => {
+        expect(_.identity('hello')).to.equal('hello');
+    });
+});
+
+
+
