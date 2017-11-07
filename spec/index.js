@@ -74,3 +74,32 @@ describe('_.indexOf', () => {
         expect(_.indexOf([1,2,3,4,5,6,7,8], 7, true)).to.equal(6);
     });
 });
+
+describe('_.filter', () => {
+    it('returns an array of elements that pass the predicate test', () => {
+        function isEven (x) {
+            return x % 2 === 0;
+        }
+        expect(_.filter([1,2,3,4,5,6], isEven)).to.eql([2,4,6]);
+    });
+    it('calls predicate function for all elements in array', () => {
+        let spy = sinon.spy();
+        _.filter([1,2,3,4,5,6], spy);
+        expect(spy.firstCall.calledWithExactly(1)).to.equal(true);
+        expect(spy.secondCall.calledWithExactly(2)).to.equal(true);
+        expect(spy.thirdCall.calledWithExactly(3)).to.equal(true);
+    });
+    it('returns an object where values pass the predicate test', () => {
+        function isEven (x) {
+            return x % 2 === 0;
+        }
+        expect(_.filter({one: 1, two: 2, three: 3, four: 4}, isEven)).to.eql({two: 2, four: 4});
+    });
+    it('calls predicate function for all keys in an object', () => {
+        let spy = sinon.spy();
+        _.filter({one: 1, two: 2, three: 3, four: 4}, spy);
+        expect(spy.firstCall.calledWithExactly(1)).to.equal(true);
+        expect(spy.secondCall.calledWithExactly(2)).to.equal(true);
+        expect(spy.thirdCall.calledWithExactly(3)).to.equal(true);
+    });
+});

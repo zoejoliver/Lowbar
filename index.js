@@ -44,6 +44,29 @@ _.indexOf = (arr, value, isSorted) => {
     return -1;
 };
 
+_.filter = (list, predicate) => {
+    let resultArr = [];
+    if (Array.isArray(list)) {
+        for (let i = 0; i < list.length; i++) {
+            if (predicate(list[i])) {
+                resultArr.push(list[i]);
+            }
+        }
+        return resultArr;
+    }
+    if (typeof list === 'object') {
+        let resultObj = {};
+        for (let key in list) {
+            if (predicate(list[key])) {
+                resultObj[key] = list[key];
+            }
+        }
+        return resultObj;
+    }   
+};
+
+module.exports = _;
+
 function binarySearch(arr, val, index) {
     if (arr.length === 1) {
         return index;
@@ -62,4 +85,3 @@ function binarySearch(arr, val, index) {
         return binarySearch(first, val, index);
     }
 }
-module.exports = _;
