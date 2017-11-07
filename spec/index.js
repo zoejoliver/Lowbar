@@ -17,5 +17,14 @@ describe('_.identity', () => {
     });
 });
 
+describe('_.first', () => {
+    it('returns the first element of the array when no second argument given', () => {
+        expect(_.first([1,2,3,4,5])).to.equal(1);
+    });
+    it('returns given number of elements when second argument is provided', () => {
+        expect(_.first([1,3,5,7,9], 3)).to.eql([1,3,5]);
+    });
+});
+
 
 
