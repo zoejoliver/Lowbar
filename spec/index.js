@@ -103,3 +103,32 @@ describe('_.filter', () => {
         expect(spy.thirdCall.calledWithExactly(3)).to.equal(true);
     });
 });
+
+describe('_.reject', () => {
+    it('returns an array of elements that do not pass the predicate test', () => {
+        function isEven (x) {
+            return x % 2 === 0;
+        }
+        expect(_.reject([1,2,3,4,5,6], isEven)).to.eql([1,3,5]);
+    });
+    it('calls predicate function for all elements in array', () => {
+        let spy = sinon.spy();
+        _.reject([1,2,3,4,5,6], spy);
+        expect(spy.firstCall.calledWithExactly(1)).to.equal(true);
+        expect(spy.secondCall.calledWithExactly(2)).to.equal(true);
+        expect(spy.thirdCall.calledWithExactly(3)).to.equal(true);
+    });
+    it('returns an object where values do not pass the predicate test', () => {
+        function isEven (x) {
+            return x % 2 === 0;
+        }
+        expect(_.reject({one: 1, two: 2, three: 3, four: 4}, isEven)).to.eql({one: 1, three: 3});
+    });
+    it('calls predicate function for all keys in an object', () => {
+        let spy = sinon.spy();
+        _.reject({one: 1, two: 2, three: 3, four: 4}, spy);
+        expect(spy.firstCall.calledWithExactly(1)).to.equal(true);
+        expect(spy.secondCall.calledWithExactly(2)).to.equal(true);
+        expect(spy.thirdCall.calledWithExactly(3)).to.equal(true);
+    });
+});
