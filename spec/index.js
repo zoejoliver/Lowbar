@@ -175,3 +175,14 @@ describe('_.contains', () => {
         expect(_.contains({one:1, two: 2, three: 3}, 6)).to.equal(false);
     });
 });
+
+describe('_.pluck', () => {
+    const stooges = [{name: 'moe', age: 40}, {name: 'larry', age: 50}, {name: 'curly', age: 60}];
+
+    it('returns an array of values of given property name in an object', () => {
+        expect(_.pluck(stooges, 'name')).to.eql(['moe', 'larry', 'curly']);
+    });
+    it('returns an empty array if property name does not exist in object', () => {
+        expect(_.pluck(stooges, 'height')).to.eql([]);
+    });
+});

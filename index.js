@@ -134,6 +134,20 @@ _.contains = (list, value, fromIndex) => {
     }
 };
 
+_.pluck = (list, propertyName) => {
+    if (typeof list === 'object') {
+        let resultArr = [];
+        for (let obj in list) {
+            for (let key in list[obj]) {
+                if (key === propertyName) {
+                    resultArr.push(list[obj][key]);
+                }
+            }
+        }
+        return resultArr;
+    } 
+};
+
 module.exports = _;
 
 function binarySearch(arr, val, index) {
