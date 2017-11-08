@@ -148,6 +148,18 @@ _.pluck = (list, propertyName) => {
     } 
 };
 
+_.reduce = (list, iteratee, memo) => {
+    _.each(list, function(item){
+        if (memo === undefined) {
+            return memo = list[0];
+        }
+        else {
+            return memo = iteratee(memo, item);
+        }
+    });
+    return memo;
+};
+
 module.exports = _;
 
 function binarySearch(arr, val, index) {

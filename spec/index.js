@@ -186,3 +186,17 @@ describe('_.pluck', () => {
         expect(_.pluck(stooges, 'height')).to.eql([]);
     });
 });
+
+describe('_.reduce', () => {
+    function sum (acc, val) {
+        return acc + val;
+    }
+    const numArr = [1,2,3,4,5];
+    const numObj = {one: 1, two: 2, three: 3, four: 4, five: 5};
+    it('reduces array down to one value, iterating through each value', () => {
+        expect(_.reduce(numArr, sum, 0)).to.equal(15);
+    });
+    it('reduces object values down to one value, iterating through each key value pair', () => {
+        expect(_.reduce(numObj, sum, 0)).to.equal(15);
+    });
+});
