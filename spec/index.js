@@ -200,3 +200,23 @@ describe('_.reduce', () => {
         expect(_.reduce(numObj, sum, 0)).to.equal(15);
     });
 });
+
+describe('_.every', () => {
+    function isEven (x) {
+        return x % 2 === 0;
+    }
+    const numArr = [1,2,3,4,5];
+    const evenArr = [2,4,6,8,10];
+    const numObj = {one: 1, two: 2, three: 3, four: 4, five: 5};
+    const evenObj = {six: 6, two: 2, eight: 8, four: 4, ten: 10};
+    it('returns true if all items pass predicate test', () => {
+        expect(_.every(numArr, isEven)).to.equal(false);
+        expect(_.every(evenArr, isEven)).to.equal(true);
+        expect(_.every(numObj, isEven)).to.equal(false);
+        expect(_.every(evenObj, isEven)).to.equal(true);
+    });
+    it('returns false when an item fails the predicate test without continuing', () => {
+        const arr = [3, 2, 4, 6, 6];
+        expect(_.every(arr, isEven)).to.equal(false);
+    });
+});

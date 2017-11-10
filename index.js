@@ -160,6 +160,20 @@ _.reduce = (list, iteratee, memo) => {
     return memo;
 };
 
+_.every = (list, predicate) => {
+    if (list.length === 0) return true;
+    return _.reduce(list, function(isTrue, elem) {
+        if (predicate) {
+            if (!isTrue) return false;
+            else {
+                if ( predicate(elem)) return true;
+                else return (false);
+            }
+        }
+        else return elem;
+    }, true);
+};
+
 module.exports = _;
 
 function binarySearch(arr, val, index) {
