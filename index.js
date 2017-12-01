@@ -173,6 +173,27 @@ _.every = (list, predicate) => {
         else return elem;
     }, true);
 };
+_.some = (list, predicate) => {
+    if (Array.isArray(list)) {
+        for (let i = 0; i < list.length; i++) {
+            if (predicate(list[i])) return true;
+        }
+        return false;
+    }
+    if (typeof list === 'object') {
+        for (let key in list) {
+            if (predicate(list[key])) return true; 
+        }
+        return false;	
+    }
+}
+
+//_.extends = () => {
+
+//}
+//_.defaults = () => {
+    
+//}
 
 module.exports = _;
 

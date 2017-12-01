@@ -220,3 +220,19 @@ describe('_.every', () => {
         expect(_.every(arr, isEven)).to.equal(false);
     });
 });
+
+describe('_.some', () => {
+    function isEven (x) {
+        return x % 2 === 0;
+    }
+    const numArr = [1,2,3,4,5];
+    const oddArr = [1,3,5,7,9];
+    const numObj = {one: 1, two: 2, three: 3, four: 4, five: 5};
+    const oddObj = {one: 1, three: 3, five: 5, seven: 7, nine: 9};
+    it('returns true if any items pass predicate test', () => {
+        expect(_.some(numArr, isEven)).to.equal(true);
+        expect(_.some(oddArr, isEven)).to.equal(false);
+        expect(_.some(numObj, isEven)).to.equal(true);
+        expect(_.some(oddObj, isEven)).to.equal(false);
+    });
+});
