@@ -186,11 +186,16 @@ _.some = (list, predicate) => {
         }
         return false;	
     }
-}
+};
 
-//_.extends = () => {
+_.extend = (destination, sources) => {
+    const newObj = Object.assign({}, destination);
+    for (let key in sources) {
+        newObj[key] = sources[key];
+    }
+    return newObj;
+};
 
-//}
 //_.defaults = () => {
     
 //}

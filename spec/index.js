@@ -236,3 +236,23 @@ describe('_.some', () => {
         expect(_.some(oddObj, isEven)).to.equal(false);
     });
 });
+
+describe('_.extend', () => {
+    it('returns combined object', () => {
+        const obj1 = {name: 'moe'};
+        const obj2 = {age: 50};
+        expect(_.extend(obj1, obj2)).to.eql({name: 'moe', age: 50});
+    });
+    it('replaces value if key is in both destination and source object', () => {
+        const obj1 = {name: 'moe'};
+        const obj2 = {name: 'zoe', age: 50};
+        expect(_.extend(obj1, obj2)).to.eql({name: 'zoe', age: 50});
+    });
+    it('copies nested arrays and objects by reference', () => {
+        const obj1 = {1:1,2:2,3:3};
+        const obj2 = {4:4, 5:5, nums:[6,7,8]};
+        const obj3 = {4:4, 5:5, nums:{6:6, 7:7, 8:8}};
+        expect(_.extend(obj1, obj2).nums).to.eql([6,7,8]);
+        expect(_.extend(obj1, obj3).nums).to.eql({6:6, 7:7, 8:8});
+    });
+});
