@@ -196,9 +196,15 @@ _.extend = (destination, sources) => {
     return newObj;
 };
 
-//_.defaults = () => {
-    
-//}
+_.defaults = (object, defaults) => {
+    const objKeys = Object.keys(object);
+    for (let key in defaults) {
+        if (!_.contains(objKeys, key)){
+            object[key] = defaults[key];
+        }
+    }
+    return object;
+};
 
 module.exports = _;
 

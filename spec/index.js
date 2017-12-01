@@ -256,3 +256,11 @@ describe('_.extend', () => {
         expect(_.extend(obj1, obj3).nums).to.eql({6:6, 7:7, 8:8});
     });
 });
+
+describe('_.defaults', () => {
+    it('returns object with values added if not defined', () => {
+        const obj1 = {flavor: 'chocolate'};
+        const obj2 = {flavor: 'vanilla', sprinkles: 'lots'};
+        expect(_.defaults(obj1, obj2)).to.eql({flavor: 'chocolate', sprinkles: 'lots'});
+    });
+});
