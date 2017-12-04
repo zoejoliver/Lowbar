@@ -285,3 +285,13 @@ describe('_.once', () => {
         expect(spy.calledOnce).to.equal(true);
     });
 });
+
+describe('_.negate', () => {
+    it('returns negated version of the given predicate function', () => {
+        function isEven (n) {
+            return n % 2 === 0;
+        }
+        expect(_.negate(isEven)(4)).to.equal(false);
+        expect(_.negate(isEven)(5)).to.equal(true);
+    });
+});

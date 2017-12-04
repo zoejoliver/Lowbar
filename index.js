@@ -217,8 +217,10 @@ _.once = (fn) => {
     };
 };
 
-_.negate = () => {
-    
+_.negate = (predicate) => {
+    return (x) => {
+        return !(predicate(x));
+    };
 };
 
 _.shuffle = () => {
