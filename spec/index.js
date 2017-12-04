@@ -295,3 +295,18 @@ describe('_.negate', () => {
         expect(_.negate(isEven)(5)).to.equal(true);
     });
 });
+describe('_.shuffle', () => {
+    it('returns an array of the same length', function () {
+        expect(_.shuffle([1,2,3]).length).to.equal(3);
+        expect(_.shuffle([1,2,3,4,5]).length).to.equal(5);
+    });
+    it('returns an array with the same values', function () {
+        expect(_.shuffle([1,2,3]).sort()).to.eql([1,2,3]);
+    });
+    it('returns an array of letters with the same length', function () {
+        expect(_.shuffle(['a','b','c']).length).to.equal(3);
+    });
+    it('returns an array of letters with the same characters', function () {
+        expect(_.shuffle(['a','b','c']).sort()).to.eql(['a','b','c']);
+    });
+});

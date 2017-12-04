@@ -223,8 +223,16 @@ _.negate = (predicate) => {
     };
 };
 
-_.shuffle = () => {
-    
+_.shuffle = (list) => {
+    let newArr = [];
+    const length = list.length;
+    for (let i = 0; i < length; i++) {
+        let l = list.length -1;
+        const random = Math.floor(Math.random() * l);
+        newArr.push(list[random]);
+        list.splice(random, 1);
+    }
+    return newArr;
 };
 
 _.invoke = () => {
