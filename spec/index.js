@@ -310,3 +310,17 @@ describe('_.shuffle', () => {
         expect(_.shuffle(['a','b','c']).sort()).to.eql(['a','b','c']);
     });
 });
+describe('_.invoke', () => {
+    it('calls sort method on each value in the list', () => {
+        const list = [[3, 1, 7], [5, 3, 2]];
+        const actual = _.invoke(list, 'last');
+        const expected = [7, 2];
+        expect(actual).to.eql(expected);
+    });
+    it('calls the method passed on each element in the list, with arguments', () => {
+        const list = [[1, 2, 3], [4, 5, 6]];
+        const actual = _.invoke(list, 'first', 2);
+        const expected = [[1, 2], [4, 5]];
+        expect(actual).to.eql(expected);
+    });
+});

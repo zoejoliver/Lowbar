@@ -235,8 +235,16 @@ _.shuffle = (list) => {
     return newArr;
 };
 
-_.invoke = () => {
-    
+_.invoke = (list, methodName, ...args) => {
+    let resultArr = [];
+    methodName = _[methodName];
+    let item;
+    for(let i = 0; i < list.length; i++) {
+        if (args !== undefined) item = methodName(list[i], ...args);
+        else item = methodName(list[i]);
+        resultArr.push(item);
+    }
+    return resultArr;
 };    
 
 _.sortBy = () => {
