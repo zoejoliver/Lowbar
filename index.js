@@ -206,6 +206,73 @@ _.defaults = (object, defaults) => {
     return object;
 };
 
+// advanced underscore methods
+_.once = (fn) => {
+    let flag = true;
+    return () => {
+        if (flag) {
+            flag = false;
+            return fn();
+        } 
+    };
+};
+
+_.negate = () => {
+    
+};
+
+_.shuffle = () => {
+    
+};
+
+_.invoke = () => {
+    
+};    
+
+_.sortBy = () => {
+// Underscore uses native JavaScript sort but use your sort algorithm    
+};
+
+_.zip = () => {
+
+};
+
+_.sortedIndex = () => {
+
+};
+
+_.flatten = () => {
+
+};
+
+_.intersection = () => {
+
+};
+
+_.difference = () => {
+    
+};
+
+_.memoize = () => {
+
+};
+
+_.delay = () => {
+
+};
+
+_.where = () => {
+
+};
+
+_.throttle = () => {
+
+};
+
+_.partial = () => {
+
+};
+
 module.exports = _;
 
 function binarySearch(arr, val, index) {

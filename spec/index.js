@@ -264,3 +264,24 @@ describe('_.defaults', () => {
         expect(_.defaults(obj1, obj2)).to.eql({flavor: 'chocolate', sprinkles: 'lots'});
     });
 });
+
+describe('_.once', () => {
+    it('calls the function only once', () => {
+        let count = 0;
+        function incCount () {
+            count ++;
+        }
+        const onceCall = _.once(incCount);
+        onceCall();
+        onceCall();
+        onceCall();
+        expect(count).to.equal(1);
+    });
+    it('check call is made only once', () => {
+        const spy = sinon.spy();
+        const onceCall = _.once(spy);
+        onceCall();
+        onceCall();
+        expect(spy.calledOnce).to.equal(true);
+    });
+});
