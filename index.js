@@ -247,8 +247,19 @@ _.invoke = (list, methodName, ...args) => {
     return resultArr;
 };    
 
-_.sortBy = () => {
-// Underscore uses native JavaScript sort but use your sort algorithm    
+_.sortBy = (list, iteratee) => {
+    if (typeof iteratee === 'function') {
+        return list.sort((a,b) => {
+            return iteratee(a) - iteratee(b);
+        });
+    } 
+    else {
+        return list.sort((a, b) => {
+            if (a[iteratee] < b[iteratee]) return -1;
+            if (a[iteratee] > b[iteratee]) return 1;
+            return 0;
+        });
+    }
 };
 
 _.zip = () => {
