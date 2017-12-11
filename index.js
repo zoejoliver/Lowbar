@@ -262,8 +262,16 @@ _.sortBy = (list, iteratee) => {
     }
 };
 
-_.zip = () => {
+_.zip = function (arrays) {
+    if (arguments.length > 1) {
+        arrays = [...arguments];
+    }
 
+    return arrays.map((array, index) => {
+        return array.map((val, i) => {
+            return arrays[i][index];
+        });
+    });
 };
 
 _.sortedIndex = () => {

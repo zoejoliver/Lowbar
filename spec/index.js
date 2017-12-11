@@ -343,3 +343,20 @@ describe('_.sortBy', () => {
     });
 });
 
+describe('_.zip', () => {
+    it('merges values of the same position in nested arrays', () => {
+        const arrays = [[1,1,1], [2,2,2], [3,3,3]];
+        const actual = _.zip(arrays);
+        const expected = [[1,2,3], [1,2,3], [1,2,3]]; 
+        expect(actual).to.eql(expected);
+    });
+    it('merges values of the same position with multiple arguments', () => {
+        const arg1 = ['moe', 'larry', 'curly'];
+        const arg2 = [30, 40, 50];
+        const arg3 = [true, false, false];
+        const actual = _.zip(arg1, arg2, arg3);
+        const expected = [['moe', 30, true], ['larry', 40, false], ['curly', 50, false]];
+        expect(actual).to.eql(expected);
+    });
+});
+
