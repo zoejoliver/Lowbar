@@ -274,8 +274,22 @@ _.zip = function (arrays) {
     });
 };
 
-_.sortedIndex = () => {
+_.sortedIndex = (list, value, iteratee) => {
+    let newList = list;
+    newList.push(value);
 
+    if (iteratee !== undefined) {
+        newList = _.sortBy(newList, iteratee);
+    }
+    if (iteratee === undefined) {
+        newList.sort();
+    }
+    if (typeof list[0] === 'object') {
+        const keys = _.pluck(newList, iteratee);
+        const val = value[iteratee];
+        return binarySearch(keys, val, 0);
+    }
+    return binarySearch(newList, value, 0);
 };
 
 _.flatten = () => {

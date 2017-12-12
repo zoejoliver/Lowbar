@@ -360,3 +360,23 @@ describe('_.zip', () => {
     });
 });
 
+describe('_.sortedIndex', () => {
+    it('determines the index at which the value should be inserted into the list', () => {
+        const list = [10, 20, 30, 40, 50];
+        const actual = _.sortedIndex(list, 35);
+        const expected = 3;
+        expect(actual).to.eql(expected);
+    });
+    it('determines the index at which the object should be inserted into the list', () => {
+        const list = [{name: 'moe', age: 40}, {name: 'curly', age: 60}];
+        const actual = _.sortedIndex(list, {name: 'larry', age: 50}, 'age');
+        const expected = 1;
+        expect(actual).to.eql(expected);
+    });
+    it('finds index at which value should be inserted after sorting list by iteratee', () => {
+        const list = ['00000', '88', '777', '1'];
+        const actual = _.sortedIndex(list, '0003', 'length');
+        const expected = 3;
+        expect(actual).to.eql(expected);
+    });
+});
