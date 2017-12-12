@@ -315,9 +315,22 @@ _.flatten = (array, shallow, resultArray, nested) => {
     return resultArr;
 };
 
+_.intersection = function (arrays) {
+    if (arguments.length > 1) {
+        arrays = [...arguments];
+    }
+    let resultArr = [];
+    let i, j;
 
-_.intersection = () => {
-
+    for (i = 0; i < arrays[0].length; i++) {
+        let item = arrays[0][i];
+        if (_.contains(resultArr, item)) continue;
+        for (j = 1; j < arrays.length; j++) {
+            if(!_.contains(arrays[j], item)) break;
+        }
+        if (j === arrays.length) resultArr.push(item);
+    }
+    return resultArr;
 };
 
 _.difference = () => {

@@ -401,3 +401,13 @@ describe('_.flatten', () => {
         expect(actual).to.eql(expected);
     });
 });
+describe('_.intersection', () => {
+    it('returns the values that are present in all arrays', () => {
+        const arg1 = [1, 2, 3];
+        const arg2 = [101, 2, 1, 10];
+        const arg3 = [2, 1];
+        const actual = _.intersection(arg1, arg2, arg3);
+        const expected = [1,2];
+        expect(actual).to.eql(expected);
+    });
+});
