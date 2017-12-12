@@ -365,18 +365,39 @@ describe('_.sortedIndex', () => {
         const list = [10, 20, 30, 40, 50];
         const actual = _.sortedIndex(list, 35);
         const expected = 3;
-        expect(actual).to.eql(expected);
+        expect(actual).to.equal(expected);
     });
     it('determines the index at which the object should be inserted into the list', () => {
         const list = [{name: 'moe', age: 40}, {name: 'curly', age: 60}];
         const actual = _.sortedIndex(list, {name: 'larry', age: 50}, 'age');
         const expected = 1;
-        expect(actual).to.eql(expected);
+        expect(actual).to.equal(expected);
     });
     it('finds index at which value should be inserted after sorting list by iteratee', () => {
         const list = ['00000', '88', '777', '1'];
         const actual = _.sortedIndex(list, '0003', 'length');
         const expected = 3;
+        expect(actual).to.equal(expected);
+    });
+});
+
+describe('_.flatten', () => {
+    it('flattens a nested array', () => {
+        const array = [1, [2], [3, [[4]]]];
+        const actual = _.flatten(array);
+        const expected = [1, 2, 3, 4];
+        expect(actual).to.eql(expected);
+    });
+    it('if shallow is passed, the array is flattened a single level', () => {
+        const array = [1, [2], [3, [[4]]]];
+        const actual = _.flatten(array, true);
+        const expected = [1, 2, 3, [[4]]];
+        expect(actual).to.eql(expected);
+    });
+    it('if shallow is passed, array is flattened a single level, where first item is an array', () => {
+        const array = [[1, [[2], [3], [[4]]]]];
+        const actual = _.flatten(array, true);
+        const expected = [1, [[2], [3], [[4]]]];
         expect(actual).to.eql(expected);
     });
 });

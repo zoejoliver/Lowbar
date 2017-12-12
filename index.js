@@ -292,9 +292,29 @@ _.sortedIndex = (list, value, iteratee) => {
     return binarySearch(newList, value, 0);
 };
 
-_.flatten = () => {
-
+_.flatten = (array, shallow, resultArray, nested) => {
+    let resultArr = [];
+    if (resultArray) resultArr = resultArray;
+    
+    for (let i = 0; i < array.length; i++) {
+        if (Array.isArray(array[i])) {  
+            if (shallow && nested) {
+                resultArr.push(array[i]);
+            } 
+            if (shallow && !nested) {
+                _.flatten(array[i], true, resultArr, true);
+            } 
+            if (!shallow) {
+                _.flatten(array[i], shallow, resultArr);
+            } 
+        }   
+        else {
+            resultArr.push(array[i]);
+        } 
+    } 
+    return resultArr;
 };
+
 
 _.intersection = () => {
 
