@@ -411,3 +411,19 @@ describe('_.intersection', () => {
         expect(actual).to.eql(expected);
     });
 });
+describe('_.difference', () => {
+    it('returns values in array that are not present other arrays', () => {
+        const array = [1, 2, 3, 4, 5];
+        const other = [5, 2, 10];
+        const actual = _.difference(array, other);
+        const expected = [1,3,4];
+        expect(actual).to.eql(expected);
+    });
+    it('returns values in array that are not present other arrays, where there are multiple other arrays', () => {
+        const array = [1, 2, 3, 4, 5];
+        const other = [[13, 14, 1], [11,12,3], [11,15,5]];
+        const actual = _.difference(array, other);
+        const expected = [2,4];
+        expect(actual).to.eql(expected);
+    });
+});

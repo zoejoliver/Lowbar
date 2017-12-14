@@ -333,8 +333,11 @@ _.intersection = function (arrays) {
     return resultArr;
 };
 
-_.difference = () => {
-    
+_.difference = function (array, others) {
+    let arrays = _.flatten(others, true);
+    return array.filter((val) => {
+        return !_.contains(arrays, val);
+    });
 };
 
 _.memoize = () => {
