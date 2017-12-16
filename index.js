@@ -1,31 +1,42 @@
 const _ = {};
 
+// Returns the same value that is used as the argument.
+
 _.identity = (x) => {
     return x;
 };
+
+// Returns the first element of an array. Passing n will return the first n elements of the array.
 
 _.first = (arr, n) => {
     if (n === undefined) return arr[0];
     return arr.slice(0, n);
 };
 
+// Returns the last element of an array. Passing n will return the last n elements of the array.
+
 _.last = (arr, n) => {
     if (n === undefined) return arr[arr.length-1];
     return arr.slice(-n);
 };
 
-_.each = (list, iteratee) => {
+// Iterates over a list of elements, yielding each in turn to an iteratee function. The iteratee is bound to the context object, if passed.
+
+_.each = (list, iteratee, context) => {
+    if (!context) context = this;
     if (Array.isArray(list)) {
         for (let i = 0; i < list.length; i++) {
-            iteratee(list[i], i, list);
+            iteratee.call(context, list[i], i, list);
         }
     }
     else {
         for (let key in list) {
-            iteratee(list[key], key, list);
+            iteratee.call(context, list[key], key, list);
         }
     }
 };
+
+// Returns the index at which value can be found in the array, or -1 if value is not present in the array. If the array is already sorted, pass true for isSorted for a faster binary search or pass a number as the third argument in order to look for the first matching value in the array after the given index.
 
 _.indexOf = (arr, value, isSorted) => {
     if (isSorted === undefined) {
@@ -44,11 +55,14 @@ _.indexOf = (arr, value, isSorted) => {
     return -1;
 };
 
-_.filter = (list, predicate) => {
+// Looks through each value in the list, returning an array of all the values that pass a truth test (predicate).
+
+_.filter = (list, predicate, context) => {
+    if (!context) context = this;
     let resultArr = [];
     if (Array.isArray(list)) {
         for (let i = 0; i < list.length; i++) {
-            if (predicate(list[i])) {
+            if (predicate.call(context, list[i])) {
                 resultArr.push(list[i]);
             }
         }
@@ -57,7 +71,7 @@ _.filter = (list, predicate) => {
     if (typeof list === 'object') {
         let resultObj = {};
         for (let key in list) {
-            if (predicate(list[key])) {
+            if (predicate.call(context, list[key])) {
                 resultObj[key] = list[key];
             }
         }
@@ -65,11 +79,14 @@ _.filter = (list, predicate) => {
     }   
 };
 
-_.reject = (list, predicate) => {
+// Returns the values in list without the elements that the truth test (predicate) passes. The opposite of filter.
+
+_.reject = (list, predicate, context) => {
+    if (!context) context = this;
     if (Array.isArray(list)) {
         let resultArr = [];
         for (let i = 0; i < list.length; i++) {
-            if (!predicate(list[i])) {
+            if (!predicate.call(context, list[i])) {
                 resultArr.push(list[i]);
             }
         }
@@ -78,13 +95,15 @@ _.reject = (list, predicate) => {
     if (typeof list === 'object') {
         let resultObj = {};
         for (let key in list) {
-            if (!predicate(list[key])) {
+            if (!predicate.call(context, list[key])) {
                 resultObj[key] = list[key];
             }
         }
         return resultObj;
     }   
 };
+
+// Produces a duplicate-free version of the array, keeping only the first occurence of each value. 
 
 _.uniq = (arr) => {
     let resultArr = [];
@@ -96,11 +115,14 @@ _.uniq = (arr) => {
     return resultArr;
 };
 
-_.map = (list, iteratee) => {
+// Produces a new array of values by mapping each value in list through a transformation function (iteratee). The iteratee is passed three arguments: the value, then the index (or key) of the iteration, and finally a reference to the entire list.
+
+_.map = (list, iteratee, context) => {
+    if (!context) context = this;
     if (Array.isArray(list)) {
         let resultArr = [];
         for (let i = 0; i < list.length; i++) {
-            let item = iteratee(list[i], i, list);
+            let item = iteratee.call(context, list[i], i, list);
             resultArr.push(item);
         }
         return resultArr;
@@ -108,12 +130,14 @@ _.map = (list, iteratee) => {
     if (typeof list === 'object') {
         let resultObj = {};
         for (let key in list) {
-            let item = iteratee(list[key], key, list);
+            let item = iteratee.call(context, list[key], key, list);
             resultObj[key] = item;
         }
         return resultObj;
     }    
 };
+
+// Returns true if the value is present in the list. Uses indexOf internally, if list is an Array. Use fromIndex to start your search at a given index.
 
 _.contains = (list, value, fromIndex) => {
     if (Array.isArray(list)) {
@@ -134,6 +158,8 @@ _.contains = (list, value, fromIndex) => {
     }
 };
 
+// A convenient version of what is perhaps the most common use-case for map: extracting a list of property values.
+
 _.pluck = (list, propertyName) => {
     if (typeof list === 'object') {
         let resultArr = [];
@@ -148,45 +174,57 @@ _.pluck = (list, propertyName) => {
     } 
 };
 
-_.reduce = (list, iteratee, memo) => {
+// Reduce boils down a list of values into a single value. Memo is the initial state of the reduction, each successive step should be returned by iteratee. The iteratee is passed four arguments: memo, value and index of the iteration,and a reference to the entire list.
+
+_.reduce = (list, iteratee, memo, context) => {
+    if (!context) context = this;
     _.each(list, function(item){
         if (memo === undefined) {
             return memo = list[0];
         }
         else {
-            return memo = iteratee(memo, item);
+            return memo = iteratee.call(context, memo, item);
         }
     });
     return memo;
 };
 
-_.every = (list, predicate) => {
+//Returns true if all of the values in the list pass the predicate truth test. Short-circuits and stops traversing the list if a false element is found.
+
+_.every = (list, predicate, context) => {
+    if (!context) context = this;
     if (list.length === 0) return true;
     return _.reduce(list, function(isTrue, elem) {
         if (predicate) {
             if (!isTrue) return false;
             else {
-                if ( predicate(elem)) return true;
+                if ( predicate.call(context, elem)) return true;
                 else return (false);
             }
         }
         else return elem;
     }, true);
 };
-_.some = (list, predicate) => {
+
+// Returns true if any of the values in the list pass the predicate truth test. Short-circuits and stops traversing the list if a true element is found.
+
+_.some = (list, predicate, context) => {
+    if (!context) context = this;
     if (Array.isArray(list)) {
         for (let i = 0; i < list.length; i++) {
-            if (predicate(list[i])) return true;
+            if (predicate.call(context, list[i])) return true;
         }
         return false;
     }
     if (typeof list === 'object') {
         for (let key in list) {
-            if (predicate(list[key])) return true; 
+            if (predicate.call(context, list[key])) return true; 
         }
         return false;	
     }
 };
+
+// Shallowly copy all of the properties in the source objects over to the destination object, and return the destination object. Any nested objects or arrays will be copied by reference, not duplicated. It's in-order, so the last source will override properties of the same name in previous arguments.
 
 _.extend = (destination, sources) => {
     const newObj = Object.assign({}, destination);
@@ -195,6 +233,8 @@ _.extend = (destination, sources) => {
     }
     return newObj;
 };
+
+// Fill in undefined properties in object with the first value present in the following list of defaults objects.
 
 _.defaults = (object, defaults) => {
     const objKeys = Object.keys(object);
@@ -206,7 +246,10 @@ _.defaults = (object, defaults) => {
     return object;
 };
 
-// advanced underscore methods
+// ADVANCED UNDERSCORE METHODS
+
+// Creates a version of the function that can only be called one time. Repeated calls to the modified function will have no effect, returning the value from the original call. Useful for initialization functions, instead of having to set a boolean flag and then check it later.
+
 _.once = (fn) => {
     let flag = true;
     return () => {
@@ -217,11 +260,15 @@ _.once = (fn) => {
     };
 };
 
+// Returns a new negated version of the predicate function.
+
 _.negate = (predicate) => {
     return (x) => {
         return !(predicate(x));
     };
 };
+
+// Returns a shuffled copy of the list, using a version of the Fisher-Yates shuffle.
 
 _.shuffle = (list) => {
     let newArr = [];
@@ -235,6 +282,8 @@ _.shuffle = (list) => {
     return newArr;
 };
 
+// Calls the method named by methodName on each value in the list. Any extra arguments passed to invoke will be forwarded on to the method invocation.
+
 _.invoke = (list, methodName, ...args) => {
     let resultArr = [];
     methodName = _[methodName];
@@ -247,10 +296,13 @@ _.invoke = (list, methodName, ...args) => {
     return resultArr;
 };    
 
-_.sortBy = (list, iteratee) => {
+// Returns a (stably) sorted copy of list, ranked in ascending order by the results of running each value through iteratee. iteratee may also be the string name of the property to sort by (eg. length).
+
+_.sortBy = (list, iteratee, context) => {
+    if (!context) context = this;
     if (typeof iteratee === 'function') {
         return list.sort((a,b) => {
-            return iteratee(a) - iteratee(b);
+            return iteratee.call(context, a) - iteratee.call(context, b);
         });
     } 
     else {
@@ -261,6 +313,8 @@ _.sortBy = (list, iteratee) => {
         });
     }
 };
+
+// Merges together the values of each of the arrays with the values at the corresponding position. Useful when you have separate data sources that are coordinated through matching array indexes. Use with apply to pass in an array of arrays. If you're working with a matrix of nested arrays, this can be used to transpose the matrix.
 
 _.zip = function (arrays) {
     if (arguments.length > 1) {
@@ -273,6 +327,8 @@ _.zip = function (arrays) {
         });
     });
 };
+
+// Uses a binary search to determine the index at which the value should be inserted into the list in order to maintain the list's sorted order. If an iteratee function is provided, it will be used to compute the sort ranking of each value, including the value you pass. The iteratee may also be the string name of the property to sort by (eg. length).
 
 _.sortedIndex = (list, value, iteratee) => {
     let newList = list;
@@ -291,6 +347,8 @@ _.sortedIndex = (list, value, iteratee) => {
     }
     return binarySearch(newList, value, 0);
 };
+
+// Flattens a nested array (the nesting can be to any depth). If you pass shallow, the array will only be flattened a single level.
 
 _.flatten = (array, shallow, resultArray, nested) => {
     let resultArr = [];
@@ -315,6 +373,8 @@ _.flatten = (array, shallow, resultArray, nested) => {
     return resultArr;
 };
 
+// Computes the list of values that are the intersection of all the arrays. Each value in the result is present in each of the arrays.
+
 _.intersection = function (arrays) {
     if (arguments.length > 1) {
         arrays = [...arguments];
@@ -333,31 +393,13 @@ _.intersection = function (arrays) {
     return resultArr;
 };
 
+// Similar to without, but returns the values from array that are not present in the other arrays.
+
 _.difference = function (array, others) {
     let arrays = _.flatten(others, true);
     return array.filter((val) => {
         return !_.contains(arrays, val);
     });
-};
-
-_.memoize = () => {
-
-};
-
-_.delay = () => {
-
-};
-
-_.where = () => {
-
-};
-
-_.throttle = () => {
-
-};
-
-_.partial = () => {
-
 };
 
 module.exports = _;
