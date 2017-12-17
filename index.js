@@ -402,8 +402,16 @@ _.difference = function (array, others) {
     });
 };
 
-module.exports = _;
+// Invokes function after wait milliseconds. If you pass the optional arguments, they will be forwarded on to the function when it is invoked.
 
+_.delay = function (func, ms, args) {
+    args = [].slice.call(arguments, 2);
+    return setTimeout(() => {
+        func.apply(null, args);
+    }, ms);
+};
+
+module.exports = _;
 function binarySearch(arr, val, index) {
     if (arr.length === 1) {
         return index;

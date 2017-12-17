@@ -427,3 +427,40 @@ describe('_.difference', () => {
         expect(actual).to.eql(expected);
     });
 });
+describe('_.delay', () => {
+    let clock;
+    before(() => { 
+        clock = sinon.useFakeTimers(); 
+    });
+    after(() => { 
+        clock.restore(); 
+    });
+    it('invokes function after waiting specified time', () => {
+        const spy = sinon.spy(console.log);
+        _.delay(spy, 1000);
+        clock.tick(998);
+        expect(spy.callCount).to.equal(0);
+        clock.tick(1);
+        expect(spy.calledOnce).to.be.false;
+        clock.tick(1);
+        expect(spy.calledOnce).to.be.true;
+    });
+    it('invokes function with one given argument after waiting', () => {
+        const spy = sinon.spy(console.log);
+        _.delay(spy, 1000, 'logged after waiting');
+        clock.tick(999);
+        expect(spy.callCount).to.equal(0);
+        clock.tick(1);
+        expect(spy.calledOnce).to.be.true;
+        expect(spy.calledWithExactly('logged after waiting')).to.be.true;
+    });
+    it('invokes function with multiple given arguments after waiting', () => {
+        const spy = sinon.spy(console.log);
+        _.delay(spy, 1000, 'logged', 'after', 'waiting');
+        clock.tick(999);
+        expect(spy.callCount).to.equal(0);
+        clock.tick(1);
+        expect(spy.calledOnce).to.be.true;
+        expect(spy.calledWithExactly('logged', 'after', 'waiting')).to.be.true;
+    });
+});
