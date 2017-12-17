@@ -480,3 +480,19 @@ describe('_.where', () => {
         expect(actual).to.eql(expected);
     });
 });
+describe('_.partial', () => {
+    it('partially applies a function by filling in arguments', () => {
+        const subtract = function (a, b) { return b - a; };
+        const sub5 = _.partial(subtract, 5);
+        const actual = sub5(20);
+        const expected = 15;
+        expect(actual).to.eql(expected);
+    });
+    it('partially applies a function by filling in arguments when passed _', () => {
+        const subtract = function (a, b) { return b - a; };
+        const subFrom20 = _.partial(subtract, _, 20);
+        const actual = subFrom20(5);
+        const expected = 15;
+        expect(actual).to.eql(expected);
+    });
+});
