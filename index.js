@@ -411,6 +411,21 @@ _.delay = function (func, ms, args) {
     }, ms);
 };
 
+// looks through each value in the list, returning an array of all the values that contain all of the key-value pairs listed in properties.
+
+_.where = (list, properties) => {
+    return list.filter((value) => {
+        let count = 0;
+        const length = Object.keys(properties).length;
+        for (let key in properties) {
+            if (value[key] === properties[key]) {
+                count ++;
+            } 
+        }
+        if (count === length) return value;
+    });
+};
+
 module.exports = _;
 function binarySearch(arr, val, index) {
     if (arr.length === 1) {

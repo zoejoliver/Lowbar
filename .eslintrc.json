@@ -23,6 +23,7 @@
         "semi": [
             1,
             "always"
-        ]
+        ],
+        "no-console": 0
     }
 }
